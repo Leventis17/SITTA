@@ -1,0 +1,146 @@
+<script type="text/x-template" id="tpl-do-tracking">
+
+<div class="card">
+  <h2>Tracking Nomor DO</h2>
+  
+  <input v-model="keyword" placeholder="Cari Nomor DO" @keyup.enter="searchTracking" @keyup.esc="clearSearch">
+
+  <div class="action-row">
+    <button type="button" class="btn-third" @click="$root.tab='order'">Kembali</button>
+    <button @click="searchTracking">
+      Cari
+    </button>
+  </div>
+
+  <div v-if="showPopup" class="tracking-popup-overlay" @click="closePopup">
+    <div class="tracking-popup" @click.stop>
+      <h3>Detail Delivery Order</h3>
+      <div class="popup-grid">
+
+        <div>
+          <small>Nomor DO</small>
+          <strong>
+            {{ selectedTracking.nomorDO }}
+          </strong>
+        </div>
+
+        <div>
+          <small>NIM</small>
+          <strong>
+            {{ selectedTracking.nim }}
+          </strong>
+        </div>
+
+        <div>
+          <small>Nama Mahasiswa</small>
+          <strong>
+            {{ selectedTracking.nama }}
+          </strong>
+        </div>
+
+        <div>
+          <small>Ekspedisi</small>
+          <strong>
+            {{ selectedTracking.pengiriman }}
+          </strong>
+        </div>
+
+        <div>
+          <small>Tanggal Kirim</small>
+          <strong>
+            {{ selectedTracking.tanggalKirim }}
+          </strong>
+        </div>
+
+        <div>
+          <small>Status</small>
+          <strong>
+            {{ selectedTracking.status }}
+          </strong>
+        </div>
+
+        <div>
+          <small>Total</small>
+          <strong>
+            Rp {{ Number(selectedTracking.total).toLocaleString("id-ID") }}
+          </strong>
+        </div>
+
+        <div>
+          <small>Paket</small>
+          <strong>
+            {{ selectedTracking.paket }}
+          </strong>
+        </div>
+      </div>
+
+      <h4>Riwayat Pengiriman</h4>
+      <div class="timeline">
+        <div class="timeline-item" v-for="p in selectedTracking.perjalanan":key="p.waktu">
+
+          <div class="track-time">
+            {{ p.waktu }}
+          </div>
+
+          <div class="track-desc">
+            {{ p.keterangan }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Daftar Tracking</h3>
+    <div class="tracking-card" v-for="item in filteredTracking" :key="item.nomorDO">
+      <div class="tracking-header">
+
+        <div class="title-tracking">
+          <div class="tracking-badge">
+            <small>Nomor DO</small>
+            <strong class="tracking-item status">
+              {{ item.nomorDO }}
+            </strong>
+          </div>
+        </div>
+
+        <div class="title-tracking">
+          <div class="tracking-item status">
+            <small>NIM</small>
+            <span class="tracking-badge">
+              {{ item.nim }}
+            </span>
+          </div>
+        </div>
+
+        <div class="tracking-item">
+          <small>Nama</small>
+          <span>{{ item.nama }}</span>
+        </div>
+
+        <div class="tracking-item">
+          <small>Ekspedisi</small>
+          <span>{{ item.pengiriman }}</span>
+        </div>
+
+        <div class="tracking-item">
+          <small>Tanggal Kirim</small>
+          <span>{{ item.tanggalKirim }}</span>
+        </div>
+
+        <div class="tracking-item total">
+          <small>Total</small>
+          <span>
+            Rp {{ Number(item.total).toLocaleString("id-ID") }}
+          </span>
+        </div>
+
+        <div class="tracking-item status">
+          <small>Status</small>
+          <span>{{ item.status }}</span>
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>
+</script>

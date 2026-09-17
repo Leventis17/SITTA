@@ -1,0 +1,68 @@
+<script type="text/x-template" id="tpl-dashboard-page">
+
+<div>
+  <div class="dashboard-hero">
+    <h1 class="hero-title">
+      <strong class="strong-title">{{ greeting }}, {{ userLogin.nama || "Pengguna" }}</strong>
+    </h1>
+    <p>
+      Selamat datang di Sistem Informasi
+      Tiras dan Transaksi Bahan Ajar
+    </p>
+  </div>
+
+  <div class="dashboard-stat-grid">
+    <div class="dashboard-stat stat-blue">
+      <span>Total Stok Buku</span>
+      <h2 class="cl-h2">
+        {{ totalStok }}
+      </h2>
+    </div>
+
+    <div class="dashboard-stat stat-yellow">
+      <span>DO Sedang Dikirim</span>
+      <h2>
+        {{ doDikirim }}
+      </h2>
+    </div>
+  </div>
+
+  <div class="dashboard-menu-grid">
+    <div class="dashboard-menu-card">
+        <div class="icon">
+            <iconify-icon icon="solar:book-2-bold-duotone" width="60"></iconify-icon>
+        </div>
+      <h3>Informasi Bahan Ajar</h3>
+      <p>
+        Kelola data stok bahan ajar,
+        update stok dan lokasi rak
+      </p>
+      <button class="btn-primary" @click="$root.tab='stok'">Buka Menu</button>
+    </div>
+
+    <div class="dashboard-menu-card">
+        <div class="icon">
+            <iconify-icon icon="solar:document-bold-duotone" width="60"></iconify-icon>
+        </div>
+      <h3>Input Delivery Order</h3>
+      <p>
+        Input Delivery Order baru
+        dan kelola pengiriman
+      </p>
+      <button class="btn-primary" @click="$root.tab='order'">Buka Menu</button>
+    </div>
+
+    <div class="dashboard-menu-card">
+        <div class="icon">
+            <iconify-icon icon="solar:delivery-bold-duotone" width="60"></iconify-icon>
+        </div>
+      <h3>Tracking Pengiriman</h3>
+      <p>
+        Pantau status pengiriman
+        secara realtime
+      </p>
+      <button class="btn-primary" @click="$root.tab='tracking'">Buka Menu</button>
+    </div>
+  </div>
+</div>
+</script>

@@ -1,0 +1,34 @@
+<script type="text/x-template" id="tpl-order-form">
+
+<form class="card" @submit.prevent="submitForm">
+  <h2>{{ edititem ? 'Update Data' : 'Tambah Data' }}</h2>
+    <div class="form-grid">
+      <input v-model="form.kode"placeholder="Kode MK">
+      <input v-model="form.judul"placeholder="Nama Mata Kuliah">
+
+      <select v-model="form.kategori">
+        <option value="">Pilih Kategori</option>
+        <option v-for="k in kategorilist" :value="k">{{ k }}</option>
+      </select>
+
+      <select v-model="form.upbjj">
+        <option value="">Pilih UPBJJ</option>
+        <option v-for="u in upbjjlist" :value="u">{{ u }}</option>
+      </select>
+
+      <input v-model="form.lokasiRak" placeholder="Lokasi Rak">
+      <input min="0" type="number" v-model.number="form.harga" placeholder="Harga">
+      <input min="0" type="number" v-model.number="form.qty" placeholder="Stok">
+      <input min="0" type="number" v-model.number="form.safety" placeholder="Stok Persediaan (Safety Stock)">
+    </div>
+
+    <div class="catatan-wrapper">
+      <textarea v-model="form.catatan"placeholder="Masukkan catatan baru"></textarea>
+    </div>
+
+    <div class="action-row">
+      <button type="submit">{{ isEdit ? 'Update' : 'Tambah' }}</button>
+      <button type="button" class="btn-secondary" @click="$root.tab='order'">Lanjut</button>
+    </div>
+</form>
+</script>

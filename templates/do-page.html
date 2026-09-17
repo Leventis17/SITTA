@@ -1,0 +1,88 @@
+<script type="text/x-template" id="tpl-do-page">
+
+<div class="card">
+  <h2>Input Order Baru</h2>
+  <div class="form-grid-do">
+    <div>
+      <input v-model="form.nim" placeholder="NIM Mahasiswa">
+      <input v-model="form.nama" placeholder="Nama Lengkap">
+
+      <select v-model="form.pengiriman">
+        <option value="">Pilih Ekspedisi</option>
+        <option v-for="p in pengirimanlist" :key="p.kode" :value="p.nama">{{ p.nama }}</option>
+      </select>
+    </div>
+    <div>
+
+      <select v-model="selectedPaket">
+        <option :value="null">Pilih Paket</option>
+        <option v-for="p in paket" :key="p.kode" :value="p">{{ p.kode }} - {{ p.nama }}</option>
+      </select>
+
+      <input type="date" v-model="form.tanggalKirim">
+      <input readonly :value="hargaPaket" placeholder="Total Harga">
+    </div>
+  </div>
+
+  <div v-if="selectedPaket" class="card">
+    <h4>Isi Paket</h4>
+    <ul class="paket">
+      <li v-for="item in selectedPaket.isi" :key="item">{{ item }}</li>
+    </ul>
+  </div>
+
+  <div v-if="showInvoice" class="card invoice-preview">
+  <h3>Preview Invoice</h3>
+  <div class="invoice-row">
+    <span>NIM</span>
+    <strong>{{ form.nim || "-" }}</strong>
+  </div>
+  
+  <div class="invoice-row">
+    <span>Penerima</span>
+    <strong>{{ form.nama || "-" }}</strong>
+  </div>
+
+  <div class="invoice-row">
+    <span>Kurir</span>
+    <strong>{{ form.pengiriman || "-" }}</strong>
+  </div>
+
+  <div class="invoice-row">
+    <span>Tanggal Kirim</span>
+    <strong>{{ form.tanggalKirim || "-" }}</strong>
+  </div>
+
+  <div class="invoice-row">
+    <span>Paket</span>
+    <strong>
+      {{ selectedPaket ? selectedPaket.nama : "-" }}
+    </strong>
+  </div>
+
+  <div class="invoice-row">
+    <span>Kode Paket</span>
+    <strong>
+      {{ selectedPaket ? selectedPaket.kode : "-" }}
+    </strong>
+  </div>
+
+  <div class="invoice-total">
+    <span class="invoice-row">Total Harga
+      <strong>
+        Rp {{ totalHarga }}
+      </strong>
+    </span>
+  </div>
+  </div>
+  
+  <div class="action-row">
+    <button type="button" class="btn-third" @click="$root.tab='stok'">Kembali</button>
+    <button @click="submitOrder">
+      Tambah DO Baru
+    </button>
+    <button type="button" class="btn-secondary" @click="$root.tab='tracking'">Lanjut</button>
+  </div>
+</div>
+
+</script>

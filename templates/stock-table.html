@@ -1,0 +1,83 @@
+<script type="text/x-template" id="tpl-stock-table">
+
+<div class="card">
+  <h2>Daftar Stok Bahan Ajar</h2>
+  <div class="toolbar">
+    <select v-model="selectedUpbjj">
+      <option value="">Semua UT Daerah</option>
+      <option v-for="u in upbjjlist" :key="u">{{ u }}</option>
+    </select>
+
+    <select v-model="selectedKategori">
+      <option value="">Semua Kategori</option>
+      <option v-for="k in kategorilist" :key="k">{{ k }}</option>
+    </select>
+
+    <select v-model="sortBy">
+      <option value="">Sort Data</option>
+      <option value="judul">Judul</option>
+      <option value="qty">Stok</option>
+      <option value="harga">Harga</option>
+    </select>
+
+    <label>
+      <input type="checkbox" v-model="reorderOnly">Reorder Only
+    </label>
+    <button class="btn-third" @click="resetFilter">Reset</button>
+  </div>
+
+<div class="table-responsive">
+<table class="stock-table">
+  <thead>
+    <tr>
+      <th>Kode</th>
+      <th>Judul</th>
+      <th>Kategori</th>
+      <th>UPBJJ</th>
+      <th>Lokasi Rak</th>
+      <th>Harga</th>
+      <th>Stok Buku</th>
+      <th>Status</th>
+      <th>Catatan</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+
+<tbody>
+<tr v-for="item in filteredStock" :key="item.kode">
+  <td>{{ item.kode }}</td>
+  <td>{{ item.judul }}</td>
+  <td>{{ item.kategori }}</td>
+  <td>{{ item.upbjj }}</td>
+  <td>{{ item.lokasiRak }}</td>
+
+  <td>
+    Rp {{ Number(item.harga).toLocaleString('id-ID') }}
+  </td>
+
+  <td class="td-number">
+    {{ item.qty }}
+  </td>
+
+<td class="status-col">
+  <status-badge
+    :qty="item.qty"
+    :safety="item.safety">
+  </status-badge>
+</td>
+
+  <td class="catatan-col">
+    <div class="catatan-box" v-html="item.catatanHTML"></div>
+  </td>
+
+  <td class="aksi-col">
+    <button class="btn-edit" @click="editItem(item)">Edit</button>
+    <button class="btn-red btn-delete" @click="deleteItem(item)">Hapus</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>  
+</div>
+
+</script>

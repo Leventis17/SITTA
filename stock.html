@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Stock Bahan Ajar</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/Logo-UT.jpg" type="image/png" class="img>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+</head>
+<body>
+<div id="app" class="container">
+  <header class="navbar">
+    <div class="logo-wrap">
+      <img src="assets/Logo-UT_FHD.png" class="logo-2">
+      <span>SITTA-UT</span>
+    </div>
+
+  <nav>
+    <button class="nav-btn" @click="tab='dashboard'" :class="{active:tab==='dashboard'}">
+      Dashboard
+    </button>
+    <button class="nav-btn" @click="tab='stok'" :class="{active:tab==='stok'}">
+      Stok Bahan Ajar
+    </button>
+    <button class="nav-btn" @click="tab='order'" :class="{active:tab==='order'}">
+      Order Baru
+    </button>
+    <button class="nav-btn" @click="tab='tracking'" :class="{active:tab==='tracking'}">
+      Tracking DO
+    </button>
+  </nav>
+
+    <button onclick="logout()" class="btn-red">Logout
+      <iconify-icon
+        class="btn-icon"
+        icon="line-md:logout">
+      </iconify-icon>
+    </button>
+  </header>
+
+  <section v-show="tab==='dashboard'">
+    <dashboard-page :stok="stok" :tracking="tracking"></dashboard-page>
+  </section>
+
+  <section v-show="tab==='stok'">
+    <order-form :upbjjlist="upbjjList" :kategorilist="kategoriList" :edititem="editData" @save-item="saveItem"></order-form>
+    <stock-table :stok="stok" :upbjjlist="upbjjList" :kategorilist="kategoriList" @edit-item="editItem" @delete-item="deleteItem"></stock-table>
+  </section>
+
+  <section v-show="tab==='order'">
+    <do-page :tracking="tracking" :paket="paket" :pengirimanlist="pengirimanList" @add-tracking="addTracking"></do-page>
+  </section>
+
+  <section v-show="tab==='tracking'">
+    <do-tracking :tracking="tracking"></do-tracking>
+  </section>
+  <app-modal ref="modal"></app-modal>
+</div>
+
+<div id="template-loader" style="display:none;"></div>
+
+<script src="js/services/api.js"></script>
+<script src="js/template-loader.js"></script>
+
+<script src="js/components/status-badge.js"></script>
+<script src="js/components/app-modal.js"></script>
+<script src="js/components/order-form.js"></script>
+<script src="js/components/stock-table.js"></script>
+<script src="js/components/do-page.js"></script>
+<script src="js/components/do-tracking.js"></script>
+<script src="js/components/dashboard-page.js"></script>
+
+<script src="js/data.js"></script>
+
+</body>
+</html>
